@@ -10,3 +10,4 @@ studyReadme.md
 HydraConfig.json
 ^compare_versions
 ^.github
+^README\.Rmd$

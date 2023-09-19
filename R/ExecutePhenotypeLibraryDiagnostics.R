@@ -1,6 +1,6 @@
-# Copyright 2023 Observational Health Data Sciences and Informatics
+# Copyright 2023 DARWIN EU®
 #
-# This file is part of PhenotypeLibraryDiagnostics
+# This file is part of StudyDiagnostics
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,10 @@
 #'                                            will need to have write privileges in this schema. Note
 #'                                            that for SQL Server, this should include both the
 #'                                            database and schema name, for example 'cdm_data.dbo'.
+#' @param cohortsFolder                       Name of local folder where cohorts are located; make 
+#'                                            sure to use forward slashes (/). Preferably, do not use a 
+#'                                            folder on a network drive since this greatly impacts 
+#'                                            performance.
 #' @param vocabularyDatabaseSchema            Schema name where your OMOP vocabulary data resides. This
 #'                                            is commonly the same as cdmDatabaseSchema. Note that for
 #'                                            SQL Server, this should include both the database and
@@ -64,10 +68,11 @@ executePhenotyeLibraryDiagnostics <- function(connectionDetails,
                                               cdmDatabaseSchema,
                                               vocabularyDatabaseSchema = cdmDatabaseSchema,
                                               cohortDatabaseSchema = cdmDatabaseSchema,
+                                              cohortsDir = cohortsDir,
                                               cohortTable = "cohort",
                                               tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
                                               verifyDependencies = TRUE,
-                                              outputFolder,
+                                              cohortsFolder,
                                               cohortIds = NULL,
                                               incrementalFolder = file.path(outputFolder, "incrementalFolder"),
                                               databaseId = "Unknown",
@@ -110,7 +115,22 @@ executePhenotyeLibraryDiagnostics <- function(connectionDetails,
   )
 
   # get cohort definitions from study package
-  cohortDefinitionSet <- PhenotypeLibrary::getPlCohortDefinitionSet(PhenotypeLibrary::listPhenotypes()$cohortId)
+  cohortDefinitionSet <- CohortGenerator::createEmptyCohortDefinitionSet()
+  
+  # Filling the cohort
+  cohortJsonFiles <- list.files(path = cohortsFolder, full.names = TRUE)
+  for (i in 1:length(cohortJsonFiles)) {
+    cohortJsonFileName <- cohortJsonFiles[i]
+    cohortName <- tools::file_path_sans_ext(basename(cohortJsonFileName))
+    cohortJson <- readChar(cohortJsonFileName, file.info(cohortJsonFileName)$size)
+    cohortExpression <- CirceR::cohortExpressionFromJson(cohortJson)
+    cohortSql <- CirceR::buildCohortQuery(cohortExpression, options = CirceR::createGenerateOptions(generateStats = FALSE))
+    cohortDefinitionSet <- rbind(cohortDefinitionSet, data.frame(cohortId = as.double(i),
+                                                                 cohortName = cohortName,
+                                                                 json = cohortJson,
+                                                                 sql = cohortSql,
+                                                                 stringsAsFactors = FALSE))
+  }
 
   if (!is.null(cohortIds)) {
     cohortDefinitionSet <- cohortDefinitionSet %>%

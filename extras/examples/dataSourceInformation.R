@@ -44,7 +44,7 @@ executeOnMultipleDataSources <- function(x) {
   databaseName <- x$databaseName
   databaseDescription <- x$databaseDescription
   
-  PhenotypeLibraryDiagnostics::executePhenotyeLibraryDiagnostics(
+  StudyDiagnostics::executeStudyDiagnostics(
     connectionDetails = connectionDetails,
     cdmDatabaseSchema = cdmDatabaseSchema,
     cohortDatabaseSchema = cohortDatabaseSchema,

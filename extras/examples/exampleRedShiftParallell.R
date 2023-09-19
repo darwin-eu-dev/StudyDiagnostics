@@ -10,7 +10,7 @@ library(magrittr)
 # VARIABLES - please change
 ################################################################################
 # The folder where the study intermediate and result files will be written:
-outputFolder <- "D:/studyResults/PhenotypeLibraryDiagnostics"
+outputFolder <- "D:/studyResults/StudyDiagnostics"
 # create output directory if it does not exist
 if (!dir.exists(outputFolder)) {
   dir.create(outputFolder,

@@ -1,5 +1,5 @@
 library(testthat)
-library(PhenotypeLibraryDiagnostics)
+library(StudyDiagnostics)
 library(dplyr)
 
 dbms <- getOption("dbms", default = "postgresql")

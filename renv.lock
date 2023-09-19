@@ -571,14 +571,14 @@
 			"RemoteUsername" : "ohdsi",
 			"RemoteRef" : "v1.3.3"
 		},
-		"PhenotypeLibraryDiagnostics" : {
-			"Package" : "PhenotypeLibraryDiagnostics",
+		"StudyDiagnostics" : {
+			"Package" : "StudyDiagnostics",
 			"Version" : "3.16.1",
 			"Source" : "GitHub",
 			"RemoteType" : "github",
 			"RemoteHost" : "api.github.com",
-			"RemoteRepo" : "PhenotypeLibraryDiagnostics",
-			"RemoteUsername" : "ohdsi-studies",
+			"RemoteRepo" : "StudyDiagnostics",
+			"RemoteUsername" : "darwin-eu-dev",
 			"RemoteRef" : "main"
 		}
 	}

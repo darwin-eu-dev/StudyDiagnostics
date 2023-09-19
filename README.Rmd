@@ -1,10 +1,23 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # DARWIN EU StudyDiagnostics
 
 <!-- badges: start -->
 <!-- badges: end -->
+
 
 - Analytics use case(s): **Characterization**
 - Study type: **Phenotyping**
@@ -21,26 +34,19 @@ Generating cohort diagnostics DARWIN EU studies.
 
 # Instructions for installing and running the study package
 
-Below are the instructions for installing and then running the package.
-For your convience, you can also find this code in
-[extras/CodeTorun.R](https://github.com/ohdsi-studies/PhenotypeLibraryDiagnostics/blob/master/extras/CodeToRun.R).
+Below are the instructions for installing and then running the package. For your convience, you can also find this code in [extras/CodeTorun.R](https://github.com/ohdsi-studies/PhenotypeLibraryDiagnostics/blob/master/extras/CodeToRun.R).
 
 ## How to install the study package
 
-There are several ways in which one could install the `StudyDiagnostics`
-package. However, we recommend using the `renv` package:
+There are several ways in which one could install the `StudyDiagnostics` package. However, we recommend using the `renv` package:
 
-1.  See the instructions
-    [here](https://ohdsi.github.io/Hades/rSetup.html) for configuring
-    your R environment, including Java and RStudio.
+1. See the instructions [here](https://ohdsi.github.io/Hades/rSetup.html) for configuring your R environment, including Java and RStudio.
 
-2.  In RStudio, create a new project: File -\> New Project… -\> New
-    Directory -\> New Project. If asked if you want to use `renv` with
-    the project, answer ‘no’.
+2. In RStudio, create a new project: File -> New Project... -> New Directory -> New Project. If asked if you want to use `renv` with the project, answer ‘no’.
 
-3.  Execute the following R code:
+3. Execute the following R code:
 
-``` r
+```{r eval=FALSE}
 # Install the latest version of renv:
 install.packages("renv")
 
@@ -53,10 +59,9 @@ renv::init()
 
 ## How to run the study package
 
-1.  Edit the script below to ensure that the variables contain the
-    correct values for your environment, then execute:
+1. Edit the script below to ensure that the variables contain the correct values for your environment, then execute:
 
-``` r
+```{r eval=FALSE}
 library(StudyDiagnostics)
 
 # Specify where the temporary files will be created:
@@ -129,7 +134,7 @@ CohortDiagnostics::launchDiagnosticsExplorer(file.path(outputFolder, "diagnostic
 
 ## Sharing the results with the study coordinator
 
-1.  Upload results to the Data Transfer Zone.
+1. Upload results to the Data Transfer Zone.
 
 # Development status
 

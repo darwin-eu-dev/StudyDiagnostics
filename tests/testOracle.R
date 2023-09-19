@@ -1,3 +1,3 @@
 library(testthat)
 options(dbms = "oracle")
-test_check("PhenotypeLibraryDiagnostics")
+test_check("StudyDiagnostics")

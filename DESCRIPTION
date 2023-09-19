@@ -1,11 +1,11 @@
-Package: PhenotypeLibraryDiagnostics
+Package: StudyDiagnostics
 Type: Package
-Title: Generating Cohort Diagnostics for the OHDSI Phenotype Library
+Title: Generating Cohort Diagnostics for Darwin EU studies
 Version: 3.17.0
-Date: 2023-08-23
-Author: Gowtham Rao [aut, cre]
-Maintainer: Gowtham Rao <rao@ohdsi.org>
-Description: Generating cohort diagnostics for the cohort definitions in the OHDSI Phenotype Library.
+Date: 2023-09-19
+Author: Cesar Barboza [aut, cre]
+Maintainer: Cesar Barboza <c.barboza@darwin-eu.org>
+Description: Generating cohort diagnostics for the cohort definitions of DARWIN studies.
 Depends:
     DatabaseConnector (>= 5.0.0),
 	  R (>= 4.1.0)
@@ -18,8 +18,7 @@ Imports:
   OhdsiSharing,
   ParallelLogger,
   rlang,
-  utils,
-  PhenotypeLibrary (>= 3.17.0)
+  utils
 Suggests:
   Eunomia,
   renv,
@@ -28,8 +27,7 @@ Remotes:
   ohdsi/CohortGenerator,
   ohdsi/CohortDiagnostics,
   ohdsi/Eunomia,
-  ohdsi/FeatureExtraction,
-  ohdsi/PhenotypeLibrary
+  ohdsi/FeatureExtraction
 License: Apache License 2.0
 LazyData: TRUE
 Encoding: UTF-8
