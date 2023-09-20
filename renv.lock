@@ -503,13 +503,13 @@
 		},
 		"CohortGenerator" : {
 			"Package" : "CohortGenerator",
-			"Version" : "0.9.0",
+			"Version" : "0.8.0",
 			"Source" : "GitHub",
 			"RemoteType" : "github",
 			"RemoteHost" : "api.github.com",
 			"RemoteRepo" : "CohortGenerator",
 			"RemoteUsername" : "ohdsi",
-			"RemoteRef" : "v0.9.0"
+			"RemoteRef" : "v0.8.0"
 		},
 		"FeatureExtraction" : {
 			"Package" : "FeatureExtraction",
