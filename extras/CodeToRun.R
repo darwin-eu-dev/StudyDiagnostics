@@ -51,9 +51,9 @@ connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = "...",
                                                                 password = "...",
                                                                 port = 5432)
 
-# For Oracle and BigQuery: define a schema that can be used to emulate temp tables. 
-# You should have write access to this schema:
-oracleTempSchema <- NULL
+# # For Oracle and BigQuery: define a schema that can be used to emulate temp tables. 
+# # You should have write access to this schema:
+# oracleTempSchema <- NULL
 
 # A folder on the local file system to store results:
 outputFolder <- "..."
@@ -87,9 +87,8 @@ StudyDiagnostics::executeStudyDiagnostics(
   vocabularyDatabaseSchema = cdmDatabaseSchema,
   cohortDatabaseSchema = cohortDatabaseSchema,
   cohortTable = cohortTable,
-  oracleTempSchema = oracleTempSchema,
   verifyDependencies = TRUE,
-  outputFolde = outputFolderr,
+  outputFolder = outputFolder,
   cohortIds = NULL,
   incrementalFolder = file.path(outputFolder, "incrementalFolder"),
   databaseId = databaseId,
