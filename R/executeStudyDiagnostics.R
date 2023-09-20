@@ -78,7 +78,8 @@ executeStudyDiagnostics <- function(connectionDetails,
                                     databaseId = "Unknown",
                                     databaseName = databaseId,
                                     databaseDescription = databaseId,
-                                    extraLog = NULL) {
+                                    extraLog = NULL,
+                                    incremental = FALSE) {
   options("CohortDiagnostics-FE-batch-size" = 5)
 
   if (!file.exists(outputFolder)) {
@@ -111,7 +112,7 @@ executeStudyDiagnostics <- function(connectionDetails,
     connectionDetails = connectionDetails,
     cohortTableNames = cohortTableNames,
     cohortDatabaseSchema = cohortDatabaseSchema,
-    incremental = TRUE
+    incremental = incremental
   )
 
   # get cohort definitions from study package
@@ -145,7 +146,7 @@ executeStudyDiagnostics <- function(connectionDetails,
     cohortTableNames = cohortTableNames,
     cohortDefinitionSet = cohortDefinitionSet,
     incrementalFolder = incrementalFolder,
-    incremental = TRUE
+    incremental = incremental
   )
 
   # export stats table to local
@@ -155,7 +156,7 @@ executeStudyDiagnostics <- function(connectionDetails,
     cohortDatabaseSchema = cohortDatabaseSchema,
     cohortTableNames = cohortTableNames,
     cohortStatisticsFolder = outputFolder,
-    incremental = TRUE
+    incremental = incremental
   )
 
   temporalStartDays <- c(
