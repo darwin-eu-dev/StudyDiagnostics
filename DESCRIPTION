@@ -5,7 +5,7 @@ Version: 3.17.0
 Date: 2023-09-19
 Author: Cesar Barboza [aut, cre]
 Maintainer: Cesar Barboza <c.barboza@darwin-eu.org>
-Description: Generating cohort diagnostics for the cohort definitions of DARWIN studies.
+Description: Generates cohort diagnostics for the cohort definitions of DARWIN EU studies.
 Depends:
     DatabaseConnector (>= 5.0.0),
 	  R (>= 4.1.0)

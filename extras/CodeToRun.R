@@ -25,7 +25,7 @@
 install.packages("renv")
 
 # Download the lock file:
-download.file("https://raw.githubusercontent.com/ohdsi-studies/PhenotypeLibraryDiagnostics/master/renv.lock", "renv.lock")
+download.file("https://raw.githubusercontent.com/darwin-eu-dev/StudyDiagnostics/main/renv.lock", "renv.lock")
 
 # Build the local library. This may take a while:
 renv::init()
