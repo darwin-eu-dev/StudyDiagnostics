@@ -73,14 +73,13 @@ executeStudyDiagnostics <- function(connectionDetails,
                                     tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
                                     verifyDependencies = TRUE,
                                     cohortIds = NULL,
-                                    outputFolder = outputFolder,
+                                    exportFolder = exportFolder,
                                     incrementalFolder = file.path(outputFolder, "incrementalFolder"),
                                     databaseId = "Unknown",
                                     databaseName = databaseId,
                                     databaseDescription = databaseId,
                                     extraLog = NULL,
                                     incremental = FALSE) {
-  options("CohortDiagnostics-FE-batch-size" = 5)
 
   if (!file.exists(outputFolder)) {
     dir.create(outputFolder, recursive = TRUE)
@@ -159,114 +158,22 @@ executeStudyDiagnostics <- function(connectionDetails,
     incremental = incremental
   )
 
-  temporalStartDays <- c(
-    # components displayed in cohort characterization
-    -9999, # anytime prior
-    -365, # long term prior
-    -180, # medium term prior
-    -30, # short term prior
-
-    # components displayed in temporal characterization
-    -365, # one year prior to -31
-    -30, # 30 day prior not including day 0
-    0, # index date only
-    1, # 1 day after to day 30
-    31,
-    -9999 # Any time prior to any time future
-  )
-
-  temporalEndDays <- c(
-    0, # anytime prior
-    0, # long term prior
-    0, # medium term prior
-    0, # short term prior
-
-    # components displayed in temporal characterization
-    -31, # one year prior to -31
-    -1, # 30 day prior not including day 0
-    0, # index date only
-    30, # 1 day after to day 30
-    365,
-    9999 # Any time prior to any time future
-  )
-
-  cohortBasedCovariateSettings <-
-    FeatureExtraction::createCohortBasedTemporalCovariateSettings(
-      analysisId = 150,
-      covariateCohortDatabaseSchema = cohortDatabaseSchema,
-      covariateCohortTable = cohortTableNames$cohortTable,
-      covariateCohorts = cohortDefinitionSet |>
-        dplyr::select(
-          cohortDefinitionSet$cohortId,
-          cohortDefinitionSet$cohortName
-        ),
-      valueType = "binary",
-      temporalStartDays = temporalStartDays,
-      temporalEndDays = temporalEndDays
-    )
-
-  featureBasedCovariateSettings <-
-    FeatureExtraction::createTemporalCovariateSettings(
-      useDemographicsGender = TRUE,
-      useDemographicsAge = TRUE,
-      useDemographicsAgeGroup = TRUE,
-      useDemographicsRace = FALSE,
-      useDemographicsEthnicity = FALSE,
-      useDemographicsIndexYear = TRUE,
-      useDemographicsIndexMonth = TRUE,
-      useDemographicsIndexYearMonth = TRUE,
-      useDemographicsPriorObservationTime = TRUE,
-      useDemographicsPostObservationTime = TRUE,
-      useDemographicsTimeInCohort = TRUE,
-      useConditionOccurrence = FALSE,
-      useProcedureOccurrence = FALSE,
-      useDrugEraStart = FALSE,
-      useMeasurement = FALSE,
-      useConditionEraStart = FALSE,
-      useConditionEraOverlap = FALSE,
-      useConditionEraGroupStart = FALSE,
-      # do not use because https://github.com/OHDSI/FeatureExtraction/issues/144
-      useConditionEraGroupOverlap = FALSE,
-      useDrugExposure = FALSE,
-      # leads to too many concept id
-      useDrugEraOverlap = FALSE,
-      useDrugEraGroupStart = FALSE,
-      # do not use because https://github.com/OHDSI/FeatureExtraction/issues/144
-      useDrugEraGroupOverlap = FALSE,
-      useObservation = FALSE,
-      useVisitCount = FALSE,
-      useVisitConceptCount = FALSE,
-      useDeviceExposure = FALSE,
-      useCharlsonIndex = FALSE,
-      useDcsi = FALSE,
-      useChads2 = FALSE,
-      useChads2Vasc = FALSE,
-      useHfrs = FALSE,
-      temporalStartDays = temporalStartDays,
-      temporalEndDays = temporalEndDays
-    )
-
-  featureExtractionCovariateSettings <-
-    list(
-      cohortBasedCovariateSettings,
-      featureBasedCovariateSettings
-    )
-
   # run cohort diagnostics
   CohortDiagnostics::executeDiagnostics(
     cohortDefinitionSet = cohortDefinitionSet,
-    exportFolder = outputFolder,
+    exportFolder = exportFolder,
     databaseId = databaseId,
+    cohortDatabaseSchema = cohortDatabaseSchema,
     databaseName = databaseName,
     databaseDescription = databaseDescription,
-    cohortDatabaseSchema = cohortDatabaseSchema,
     connectionDetails = connectionDetails,
     connection = NULL,
     cdmDatabaseSchema = cdmDatabaseSchema,
-    tempEmulationSchema = tempEmulationSchema,
-    cohortTable = cohortTable,
-    cohortTableNames = cohortTableNames,
-    vocabularyDatabaseSchema = vocabularyDatabaseSchema,
+    tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
+    cohortTable = "cohort",
+    cohortTableNames = CohortGenerator::getCohortTableNames(cohortTable = cohortTable),
+    conceptCountsTable = "#concept_counts",
+    vocabularyDatabaseSchema = cdmDatabaseSchema,
     cohortIds = NULL,
     cdmVersion = 5,
     runInclusionStatistics = TRUE,
@@ -275,12 +182,15 @@ executeStudyDiagnostics <- function(connectionDetails,
     runTimeSeries = TRUE,
     runVisitContext = FALSE,
     runBreakdownIndexEvents = TRUE,
-    runIncidenceRate = TRUE,
+    runIncidenceRate = FALSE,
     runCohortRelationship = TRUE,
     runTemporalCohortCharacterization = TRUE,
-    temporalCovariateSettings = featureExtractionCovariateSettings,
+    temporalCovariateSettings = getDefaultCovariateSettings(),
     minCellCount = 5,
+    minCharacterizationMean = 0.01,
+    irWashoutPeriod = 0,
     incremental = FALSE,
-    incrementalFolder = incrementalFolder
+    incrementalFolder = file.path(exportFolder, "incremental"),
+    useExternalConceptCountsTable = FALSE
   )
 }
