@@ -10,19 +10,20 @@ Depends:
     DatabaseConnector (>= 5.0.0),
 	  R (>= 4.1.0)
 Imports:
-  CohortDiagnostics (>= 3.1.0),
-  CohortGenerator (>= 0.7.0),
-  dplyr,
-  FeatureExtraction,
-  jsonlite,
-  OhdsiSharing,
-  ParallelLogger,
-  rlang,
-  utils
+    CirceR,
+    CohortDiagnostics (>= 3.1.0),
+    CohortGenerator (>= 0.7.0),
+    dplyr,
+    FeatureExtraction,
+    jsonlite,
+    ParallelLogger,
+    rlang,
+    utils
 Suggests:
   Eunomia,
   renv,
-  testthat
+  testthat,
+  withr
 Remotes:
   ohdsi/CohortGenerator,
   ohdsi/CohortDiagnostics,

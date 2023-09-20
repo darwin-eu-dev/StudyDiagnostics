@@ -4,6 +4,8 @@
 # DARWIN EU StudyDiagnostics
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/darwin-eu-dev/StudyDiagnostics/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/darwin-eu-dev/StudyDiagnostics/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 - Analytics use case(s): **Characterization**
@@ -23,7 +25,7 @@ Generating cohort diagnostics DARWIN EU studies.
 
 Below are the instructions for installing and then running the package.
 For your convience, you can also find this code in
-[extras/CodeTorun.R](https://github.com/ohdsi-studies/PhenotypeLibraryDiagnostics/blob/master/extras/CodeToRun.R).
+[extras/CodeTorun.R](https://github.com/darwin-eu-dev/StudyDiagnostics/blob/main/extras/CodeToRun.R).
 
 ## How to install the study package
 

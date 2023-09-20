@@ -64,21 +64,21 @@
 #' @param extraLog                            Do you want to add anything extra into the log?
 #'
 #' @export
-executePhenotyeLibraryDiagnostics <- function(connectionDetails,
-                                              cdmDatabaseSchema,
-                                              vocabularyDatabaseSchema = cdmDatabaseSchema,
-                                              cohortDatabaseSchema = cdmDatabaseSchema,
-                                              cohortsDir = cohortsDir,
-                                              cohortTable = "cohort",
-                                              tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
-                                              verifyDependencies = TRUE,
-                                              cohortsFolder,
-                                              cohortIds = NULL,
-                                              incrementalFolder = file.path(outputFolder, "incrementalFolder"),
-                                              databaseId = "Unknown",
-                                              databaseName = databaseId,
-                                              databaseDescription = databaseId,
-                                              extraLog = NULL) {
+executeStudyDiagnostics <- function(connectionDetails,
+                                    cdmDatabaseSchema,
+                                    vocabularyDatabaseSchema = cdmDatabaseSchema,
+                                    cohortDatabaseSchema = cdmDatabaseSchema,
+                                    cohortsFolder = cohortsFolder,
+                                    cohortTable = "cohort",
+                                    tempEmulationSchema = getOption("sqlRenderTempEmulationSchema"),
+                                    verifyDependencies = TRUE,
+                                    cohortIds = NULL,
+                                    outputFolder = outputFolder,
+                                    incrementalFolder = file.path(outputFolder, "incrementalFolder"),
+                                    databaseId = "Unknown",
+                                    databaseName = databaseId,
+                                    databaseDescription = databaseId,
+                                    extraLog = NULL) {
   options("CohortDiagnostics-FE-batch-size" = 5)
 
   if (!file.exists(outputFolder)) {
@@ -134,7 +134,7 @@ executePhenotyeLibraryDiagnostics <- function(connectionDetails,
 
   if (!is.null(cohortIds)) {
     cohortDefinitionSet <- cohortDefinitionSet %>%
-      dplyr::filter(.data$cohortId %in% c(cohortIds))
+      dplyr::filter(cohortDefinitionSet$cohortId %in% c(cohortIds))
   }
 
   # Generate the cohort set
@@ -196,8 +196,8 @@ executePhenotyeLibraryDiagnostics <- function(connectionDetails,
       covariateCohortTable = cohortTableNames$cohortTable,
       covariateCohorts = cohortDefinitionSet |>
         dplyr::select(
-          cohortId,
-          cohortName
+          cohortDefinitionSet$cohortId,
+          cohortDefinitionSet$cohortName
         ),
       valueType = "binary",
       temporalStartDays = temporalStartDays,

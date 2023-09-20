@@ -15,7 +15,8 @@
 # limitations under the License.
 
 verifyDependencies <- function() {
-  lockFile <- file.path(renv::project(), "renv.lock")
+  # lockFile <- file.path(renv::project(), "renv.lock")
+  lockFile <- file.path(system.file("examples", "renv.lock", package = "StudyDiagnostics"))
   expected <- jsonlite::fromJSON(lockFile)
   expected <- dplyr::bind_rows(expected[[2]])
   basePackages <- rownames(utils::installed.packages(priority = "base"))
