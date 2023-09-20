@@ -541,6 +541,16 @@
 			"RemoteUsername" : "ohdsi",
 			"RemoteRef" : "v3.2.3"
 		},
+		"CirceR" : {
+			"Package" : "CirceR",
+			"Version" : "1.3.1",
+			"Source" : "GitHub",
+			"RemoteType" : "github",
+			"RemoteHost" : "api.github.com",
+			"RemoteRepo" : "CirceR",
+			"RemoteUsername" : "ohdsi",
+			"RemoteRef" : "v1.3.1"
+		},
 		"ROhdsiWebApi" : {
 			"Package" : "ROhdsiWebApi",
 			"Version" : "1.3.3",
@@ -553,7 +563,7 @@
 		},
 		"StudyDiagnostics" : {
 			"Package" : "StudyDiagnostics",
-			"Version" : "3.16.1",
+			"Version" : "0.1.0",
 			"Source" : "GitHub",
 			"RemoteType" : "github",
 			"RemoteHost" : "api.github.com",
