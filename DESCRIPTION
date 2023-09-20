@@ -1,7 +1,7 @@
 Package: StudyDiagnostics
 Type: Package
 Title: Generating Cohort Diagnostics for Darwin EU studies
-Version: 3.17.0
+Version: 0.1.0
 Date: 2023-09-19
 Author: Cesar Barboza [aut, cre]
 Maintainer: Cesar Barboza <c.barboza@darwin-eu.org>
