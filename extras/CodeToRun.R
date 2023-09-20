@@ -27,8 +27,10 @@ install.packages("renv")
 # Download the lock file:
 download.file("https://raw.githubusercontent.com/darwin-eu-dev/StudyDiagnostics/main/renv.lock", "renv.lock")
 
-# Build the local library. This may take a while:
+# Build the local library.
 renv::init()
+# Restore the library from the lockfile:
+renv::restore()
 
 # *******************************************************
 # SECTION 2: Running the package -------------------------------------------------------------------------------
@@ -38,18 +40,15 @@ renv::init()
 
 library(StudyDiagnostics)
 
-# Specify where the temporary files will be created:
-options(andromedaTempFolder = "s:/andromedaTemp")
-
 # Maximum number of cores to be used:
 maxCores <- parallel::detectCores()
 
 # Details for connecting to the server. See 
 # http://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html for more details:
-connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = "postgresql",
-                                                                server = "localhost/ohdsi",
-                                                                user = "joe",
-                                                                password = "secret",
+connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = "...",
+                                                                server = "...",
+                                                                user = "...",
+                                                                password = "...",
                                                                 port = 5432)
 
 # For Oracle and BigQuery: define a schema that can be used to emulate temp tables. 
@@ -109,7 +108,6 @@ CohortDiagnostics::launchDiagnosticsExplorer(sqliteDbPath = file.path(outputFold
 # SECTION 3: Sharing the results -------------------------------------------------------------------------------
 # *******************************************************
 #
-# Upload results to the OHDSI SFTP server:
-uploadResults(outputFolder, keyFileName, userName)
+# Upload results to the DTZ.
 
-# Please send the study-coordinator an e-mail when done
+# Please send the study-coordinator an e-mail when done.
