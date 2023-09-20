@@ -27,6 +27,7 @@ Suggests:
 Remotes:
   ohdsi/CohortGenerator,
   ohdsi/CohortDiagnostics,
+  ohdsi/CirceR,
   ohdsi/Eunomia,
   ohdsi/FeatureExtraction
 License: Apache License 2.0
