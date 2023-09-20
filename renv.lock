@@ -539,7 +539,7 @@
 			"RemoteHost" : "api.github.com",
 			"RemoteRepo" : "CohortDiagnostics",
 			"RemoteUsername" : "darwin-eu-dev",
-			"RemoteRef" : "v3.2.2"
+			"RemoteRef" : "main"
 		},
 		"ROhdsiWebApi" : {
 			"Package" : "ROhdsiWebApi",
